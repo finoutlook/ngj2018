@@ -17,9 +17,16 @@ public class HighscoreSaver : MonoBehaviour {
 	void Start () {
 		_highscoreFile = ApplicationModel.highscoreFile;
 		_playerScore = ApplicationModel.playerScore;
-		_playerName = "Anonymous";
+		if(!File.Exists(_highscoreFile))
+		{
+			using (StreamWriter sw = File.AppendText(_highscoreFile)) 
+			{
+				sw.WriteLine("MrNobody:1");
+			}
+		}
 		_highscores = System.IO.File.ReadAllLines(_highscoreFile);
 		scoreText.text = _playerScore.ToString();
+		nameText.ActivateInputField();
 	}
 	
 	// Update is called once per frame
@@ -31,6 +38,8 @@ public class HighscoreSaver : MonoBehaviour {
 	{
 		int thisScore;
 		string _playerName = nameText.text;
+		if (_playerName == "")
+			_playerName = "Anonymous";
 		System.IO.File.Delete(_highscoreFile);
 		if(_highscores.Length < 1)
 		{
