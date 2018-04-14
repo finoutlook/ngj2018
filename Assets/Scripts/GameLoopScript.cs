@@ -59,11 +59,21 @@ public class GameLoopScript : MonoBehaviour {
         
         if (possibleIngredients != null && possibleIngredients.Any())
         {
-            for (int i = 0; i < NumberOfIngredientsPerTurn; i++)
+            int negativeAddedSoFar = 0;
+
+            int ingredientsAdded = 0;
+
+            while (ingredientsAdded < NumberOfIngredientsPerTurn)
             {
                 int index = Random.Range(0, possibleIngredients.Count());
-                var obj = GameObject.Instantiate(possibleIngredients.ElementAt(index), SpawnPoints[i].transform.position, Quaternion.identity);
-                newIngredients.Add(obj);
+                var obj = GameObject.Instantiate(possibleIngredients.ElementAt(index), SpawnPoints[ingredientsAdded].transform.position, Quaternion.identity);
+
+                if (obj.GetComponent<Ingredient>().X < 0 && negativeAddedSoFar < NumberOfIngredientsPerTurn - 1)
+                {
+                    newIngredients.Add(obj);
+                    negativeAddedSoFar++;
+                    ingredientsAdded++;
+                }
             }
         }
 
