@@ -15,10 +15,10 @@ public class GameLoopScript : MonoBehaviour {
 	void Start () {
         AllPossibleIngredients = new List<Ingredient>()
         {
-            new Ingredient("Apple", 1, 0, 0, 1),
-            new Ingredient("Orange", 0, 1, 0, 1),
-            new Ingredient("Strawberry", 0, 0, 1, 1),
-            new Ingredient("Banana", 1, 1, 1, 1)
+            new Ingredient("Apple", 20, 0, 0, 0, 1),
+            new Ingredient("Orange", -10, 10, 0, 0, 1),
+            new Ingredient("Strawberry", 5, -10, 15, 1, 1),
+            new Ingredient("Banana", 0, 30, -5, 1, 1)
         };
 
         CurrentIngredients = GetNewIngredients();
@@ -65,28 +65,5 @@ public class GameLoopScript : MonoBehaviour {
         }
 
         return newIngredients;
-    }
-}
-
-public class Ingredient
-{
-    public string Name { get; set; }
-    public float X { get; set; }
-    public float Y { get; set; }
-    public int UnlockedAtLevel { get; set; }
-    public int Scarcity { get; set; }
-
-    public Ingredient(string name, float x, float y, int unlockedAtLevel, int scarcity)
-    {
-        Name = name;
-        X = x;
-        Y = y;
-        UnlockedAtLevel = unlockedAtLevel;
-        Scarcity = scarcity;
-    }
-
-    public override string ToString()
-    {
-        return "[Name: " + Name + " - X: " + X + " Y: " + Y + "]";
     }
 }

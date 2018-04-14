@@ -5,43 +5,50 @@ using UnityEngine;
 public class IngredientBar : MonoBehaviour
 {
     public Explodometer explodometer;
+    public ScoreManager scoreManager;
+    public GameLoopScript gameLoop;
 
-    public Ingredient ingredient1;
-    public Ingredient ingredient2;
-    public Ingredient ingredient3;
-    public Ingredient ingredient4;
+    public List<Ingredient> ingredients;
 
     // Use this for initialization
     void Start ()
     {
-		
+        ingredients = gameLoop.GetNewIngredients();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && ingredients.Count > 0 )
         {
             Debug.Log("Ingredient 1 used");
-            explodometer.Apply(ingredient1.a, ingredient1.b, ingredient1.c /*ingredient1.d*/);
+            explodometer.Apply(ingredients[0].A, ingredients[0].B, ingredients[0].C /*ingredient1.d*/);
+            scoreManager.UpdateScore(1);
+            ingredients = gameLoop.GetNewIngredients();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2) && ingredients.Count > 1)
         {
             Debug.Log("Ingredient 2 used");
-            explodometer.Apply(ingredient2.a, ingredient2.b, ingredient2.c /*ingredient2.d*/);
+            explodometer.Apply(ingredients[1].A, ingredients[2].B, ingredients[1].C /*ingredient2.d*/);
+            scoreManager.UpdateScore(1);
+            ingredients = gameLoop.GetNewIngredients();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha3) && ingredients.Count > 2)
         {
             Debug.Log("Ingredient 3 used");
-            explodometer.Apply(ingredient3.a, ingredient3.b, ingredient3.c /*ingredient3.d*/);
+            explodometer.Apply(ingredients[2].A, ingredients[2].B, ingredients[2].C /*ingredient3.d*/);
+            scoreManager.UpdateScore(1);
+            ingredients = gameLoop.GetNewIngredients();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.Alpha4) && ingredients.Count > 3)
         {
             Debug.Log("Ingredient 4 used");
-            explodometer.Apply(ingredient4.a, ingredient4.b, ingredient4.c /*ingredient4.d*/);
+            explodometer.Apply(ingredients[3].A, ingredients[3].B, ingredients[3].C /*ingredient4.d*/);
+            scoreManager.UpdateScore(1);
+            ingredients = gameLoop.GetNewIngredients();
         }
     }
 }

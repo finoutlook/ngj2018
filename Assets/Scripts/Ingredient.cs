@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ingredient : MonoBehaviour {
-    
-
+public class Ingredient : MonoBehaviour
+{    
     public string Name;
 
-    public float a;
-    public float b;
-    public float c;
-    //public float d;
+    public float A;
+    public float B;
+    public float C;
+    public int UnlockedAtLevel { get; set; }
+    public int Scarcity { get; set; }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    public Ingredient( string name, float a, float b, float c, int unlockedAtLevel, int scarcity )
     {
-	}
+        Name = name;
+        A = a;
+        B = b;
+        C = c;
+        UnlockedAtLevel = unlockedAtLevel;
+        Scarcity = scarcity;
+    }
+
+    public override string ToString()
+    {
+        return "[Name: " + Name + " - A: " + A + " B: " + B + " C: " + C + "]";
+    }
 }
