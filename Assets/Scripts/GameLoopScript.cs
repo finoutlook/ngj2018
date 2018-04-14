@@ -8,20 +8,22 @@ public class GameLoopScript : MonoBehaviour {
     public int Turn = 1;
     public int NumberOfIngredientsPerTurn = 5;
 
-    private List<Ingredient> AllPossibleIngredients;
-    private List<Ingredient> CurrentIngredients;
+    public List<GameObject> AllPossibleIngredients;
+    public List<GameObject> SpawnPoints;
+    private List<GameObject> CurrentIngredients;
+
 
 	// Use this for initialization
 	void Start () {
-        AllPossibleIngredients = new List<Ingredient>()
+        /*AllPossibleIngredients = new List<Ingredient>()
         {
             new Ingredient("Apple", 20, 0, 0, 0, 1),
             new Ingredient("Orange", -10, 10, 0, 0, 1),
             new Ingredient("Strawberry", 5, -10, 15, 1, 1),
             new Ingredient("Banana", 0, 30, -5, 1, 1)
         };
-
-        CurrentIngredients = GetNewIngredients();
+        */
+        //CurrentIngredients = GetNewIngredients();
 	}
 	
 	// Update is called once per frame
@@ -35,7 +37,7 @@ public class GameLoopScript : MonoBehaviour {
 
                 foreach (var ingredient in CurrentIngredients)
                 {
-                    ingredientOutput += ingredient.ToString() + " ";
+                    ingredientOutput += ingredient.GetComponent<Ingredient>().ToString() + " ";
                 }
 
                 Debug.Log("Level: " + Level + ", Turn: " + Turn + ", Ingredients: " + ingredientOutput);
@@ -48,19 +50,20 @@ public class GameLoopScript : MonoBehaviour {
         }
 	}
 
-    public List<Ingredient> GetNewIngredients()
+    public List<GameObject> GetNewIngredients()
     {
-        var newIngredients = new List<Ingredient>();
+        var newIngredients = new List<GameObject>();
 
         // only ingredients available at this level
-        var possibleIngredients = AllPossibleIngredients.Where(x => x.UnlockedAtLevel <= Level);
-
+        var possibleIngredients = AllPossibleIngredients.Where(x => x.GetComponent<Ingredient>().UnlockedAtLevel <= Level);
+        
         if (possibleIngredients != null && possibleIngredients.Any())
         {
             for (int i = 0; i < NumberOfIngredientsPerTurn; i++)
             {
                 int index = Random.Range(0, possibleIngredients.Count());
-                newIngredients.Add(possibleIngredients.ElementAt(index));
+                var obj = GameObject.Instantiate(possibleIngredients.ElementAt(index), SpawnPoints[i].transform.position, Quaternion.identity);
+                newIngredients.Add(obj);
             }
         }
 
