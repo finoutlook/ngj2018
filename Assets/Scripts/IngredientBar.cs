@@ -47,8 +47,7 @@ public class IngredientBar : MonoBehaviour
     private void addIngredient(int i)
     {
         Ingredient ingredient = ingredients[i].GetComponent<Ingredient>();
-        explodometer.Apply(ingredient.X);
-        scoreManager.UpdateScore(1);
+        scoreManager.UpdateScore(explodometer.Apply(ingredient.X));
         reloadIngredient(i, ingredients[i].transform.position);
     }
 
