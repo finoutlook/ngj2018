@@ -18,7 +18,7 @@ public class HighscoreManager : MonoBehaviour {
 		_highscores = System.IO.File.ReadAllLines(_highscoreFile);
 		foreach (string line in _highscores)
 		{
-			highscoreList.text += line + "\n\r";
+			highscoreList.text += line.Replace(":"," : ") + "\n\r";
 		}
 	}
 	
