@@ -50,7 +50,7 @@ public class Explodometer : MonoBehaviour
         //this.d = Mathf.Clamp( this.d + d, 0, dMax );
 
         flask.Color(_x);
-        slider.value = _x;
+        slider.value = Mathf.Abs(_x);
 
         if ( increaseDifficulty )
         {
