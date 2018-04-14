@@ -10,7 +10,7 @@ public class Ingredient : MonoBehaviour {
     public float a;
     public float b;
     public float c;
-    public float d;
+    //public float d;
 
 	// Use this for initialization
 	void Start () {

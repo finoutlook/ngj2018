@@ -1,45 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Explodometer : MonoBehaviour {
+public class Explodometer : MonoBehaviour
+{
 
     private float a;
     private float b;
     private float c;
-    private float d;
+    //private float d;
 
-    public float aMax = 100;
-    public float bMax = 100;
-    public float cMax = 100;
-    public float dMax = 100;
-    
+    public float aMax = 255;
+    public float bMax = 255;
+    public float cMax = 255;
+    //public float dMax = 100;
+
+    public Flask flask;
+
 	void Start ()
     {
-		reset();
+		Reset();
 	}
 	
 	void Update ()
     {
         // check for lose condition
-        checkLoseCondition();
+        CheckLoseCondition();
 	}
 
-    public void apply(float a, float b, float c, float d)
+    public void Apply(float a, float b, float c/*, float d*/)
     {
-        this.a += a;
-        this.b += b;
-        this.c += c;
-        this.d += d;
+        this.a = Mathf.Clamp( this.a + a, 0, aMax );
+        this.b = Mathf.Clamp( this.b + b, 0, bMax );
+        this.c = Mathf.Clamp( this.c + c, 0, cMax );
+        //this.d = Mathf.Clamp( this.d + d, 0, dMax );
 
-        Debug.Log("Explodometer: " + this.a + ", " + this.b + ", " + this.c + ", " + this.d);
+        flask.Color( this.a, this.b, this.c);
+
+        Debug.Log("Explodometer: " + this.a + ", " + this.b + ", " + this.c /*+ ", " + this.d*/);
     }
 
-    private void checkLoseCondition()
+    private void CheckLoseCondition()
     {
         // lose condition
-        if (a >= aMax || b >= bMax || c >= cMax || d >= dMax)
+        if ( a >= aMax || b >= bMax || c >= cMax )
         {
             // lose and explode
             Debug.Log("Explodometer: YOU LOSE!");
@@ -47,8 +50,9 @@ public class Explodometer : MonoBehaviour {
         }
     }
 
-    private void reset()
+    private void Reset()
     {
-        a = b = c = d = 0;
+        a = b = c /*= d*/ = 0;
+        flask.Color( a, b, c );
     }
 }
