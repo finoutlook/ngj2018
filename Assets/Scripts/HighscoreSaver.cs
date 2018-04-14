@@ -12,6 +12,7 @@ public class HighscoreSaver : MonoBehaviour {
 	private string _playerName;
 	private string[] _highscores;
 	public Text scoreText;
+	public InputField nameText;
 	// Use this for initialization
 	void Start () {
 		_highscoreFile = ApplicationModel.highscoreFile;
@@ -26,36 +27,34 @@ public class HighscoreSaver : MonoBehaviour {
 		
 	}
 
-	public void SetName(string name)
-	{
-		_playerName = name;
-	}
-
 	public void AddHighscore()
 	{
 		int thisScore;
+		string _playerName = nameText.text;
 		System.IO.File.Delete(_highscoreFile);
 		if(_highscores.Length < 1)
 		{
 			_highscores[0]="MrNobody:1";
 		}
 		Debug.Log("Saving scores");
+		bool added = false;
 		using (StreamWriter sw = File.AppendText(_highscoreFile)) 
 		{
 			foreach (string hs in _highscores)
 			{
 				thisScore = System.Int32.Parse((hs.Split(':'))[1]);
-				if(_playerScore >= thisScore)
+				if(_playerScore >= thisScore && !added)
 				{
 					sw.WriteLine(_playerName+":"+_playerScore);
-					Debug.Log("Added new line");
+					Debug.Log("Added new line "+ _playerName);
 					sw.WriteLine((hs.Split(':'))[0]+":"+thisScore);
-					Debug.Log("Added existing line");
+					Debug.Log("Added existing line " + (hs.Split(':'))[0]);
+					added = true;
 				}
 				else
 				{
 					sw.WriteLine((hs.Split(':'))[0]+":"+thisScore);
-					Debug.Log("Added existing line");
+					Debug.Log("Added existing line "+(hs.Split(':'))[0]);
 				}
 			}
 		}
