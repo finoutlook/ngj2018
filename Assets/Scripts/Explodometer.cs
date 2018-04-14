@@ -3,15 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class Explodometer : MonoBehaviour
 {
-
-    private float a;
-    private float b;
-    private float c;
+    private float _x;
+    //private float b;
+    //private float c;
     //private float d;
 
-    public float aMax = 255;
-    public float bMax = 255;
-    public float cMax = 255;
+    public float xMax = 255;
+    //public float bMax = 255;
+    //public float cMax = 255;
     //public float dMax = 100;
 
     public Flask flask;
@@ -27,22 +26,22 @@ public class Explodometer : MonoBehaviour
         CheckLoseCondition();
 	}
 
-    public void Apply(float a, float b, float c/*, float d*/)
+    public void Apply(float x/*, float b, float c, float d*/)
     {
-        this.a = Mathf.Clamp( this.a + a, 0, aMax );
-        this.b = Mathf.Clamp( this.b + b, 0, bMax );
-        this.c = Mathf.Clamp( this.c + c, 0, cMax );
+        _x = Mathf.Clamp(_x + x, -xMax, xMax );
+        //this.b = Mathf.Clamp( this.b + b, 0, bMax );
+        //this.c = Mathf.Clamp( this.c + c, 0, cMax );
         //this.d = Mathf.Clamp( this.d + d, 0, dMax );
 
-        flask.Color( this.a, this.b, this.c);
+        flask.Color(_x);
 
-        Debug.Log("Explodometer: " + this.a + ", " + this.b + ", " + this.c /*+ ", " + this.d*/);
+        Debug.Log("Explodometer: " + _x);
     }
 
     private void CheckLoseCondition()
     {
         // lose condition
-        if ( a >= aMax || b >= bMax || c >= cMax )
+        if (_x <= -xMax || _x >= xMax/* || b >= bMax || c >= cMax*/)
         {
             // lose and explode
             Debug.Log("Explodometer: YOU LOSE!");
@@ -52,7 +51,7 @@ public class Explodometer : MonoBehaviour
 
     private void Reset()
     {
-        a = b = c /*= d*/ = 0;
-        flask.Color( a, b, c );
+        _x = 0;
+        flask.Color(_x);
     }
 }

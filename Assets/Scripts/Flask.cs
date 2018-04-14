@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class Flask : MonoBehaviour {
@@ -16,9 +15,24 @@ public class Flask : MonoBehaviour {
 		
 	}
 
-    public void Color(float a, float b, float c)
+    // -100 = green, 0 = blue, 100 = red
+    public void Color(float x)
     {
+        float blue = 255 - Math.Abs(x);
+        float green = 0;
+        float red = 0;
+
+        if (x < 0)
+        {
+            green = Math.Abs(x);
+        }
+
+        if (x > 0)
+        {
+            red = x;
+        }       
+
         var renderer = this.GetComponent<SpriteRenderer>();
-        renderer.color = new UnityEngine.Color(a / 255f, b / 255f, c / 255f);
+        renderer.color = new UnityEngine.Color(red / 255f, green / 255f, blue / 255f);
     }
 }
