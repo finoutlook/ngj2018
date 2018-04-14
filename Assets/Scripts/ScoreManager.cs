@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_score = 0;
-		_prefix = "Score: ";
+		_prefix = "SCORE: ";
 	}
 	
 	// Update is called once per frame
