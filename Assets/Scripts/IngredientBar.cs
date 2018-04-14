@@ -49,8 +49,15 @@ public class IngredientBar : MonoBehaviour
         Ingredient ingredient = ingredients[i].GetComponent<Ingredient>();
         explodometer.Apply(ingredient.X);
         scoreManager.UpdateScore(1);
-        refreshIngredients();
+        reloadIngredient(i, ingredients[i].transform.position);
     }
+
+    private void reloadIngredient(int index, Vector3 position)
+    {
+        GameObject.Destroy(ingredients[index]);
+        ingredients[index] = gameLoop.GetNewIngredient(position);
+    }
+
     private void refreshIngredients()
     {
         foreach ( GameObject obj in ingredients )

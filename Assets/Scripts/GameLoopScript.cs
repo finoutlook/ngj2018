@@ -69,4 +69,20 @@ public class GameLoopScript : MonoBehaviour {
 
         return newIngredients;
     }
+
+    public GameObject GetNewIngredient(Vector3 position)
+    {
+        GameObject ingredient = null;
+
+        // only ingredients available at this level
+        var possibleIngredients = AllPossibleIngredients.Where(x => x.GetComponent<Ingredient>().UnlockedAtLevel <= Level);
+
+        if (possibleIngredients != null && possibleIngredients.Any())
+        {
+            int index = Random.Range(0, possibleIngredients.Count());
+            ingredient = GameObject.Instantiate(possibleIngredients.ElementAt(index), position, Quaternion.identity);
+        }
+
+        return ingredient;
+    }
 }
