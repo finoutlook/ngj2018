@@ -44,6 +44,7 @@ public class Explodometer : MonoBehaviour
 
     public int Apply(float x, bool increaseDifficulty = true/*, float b, float c, float d*/)
     {
+
         _x = Mathf.Clamp(_x + x, -xMax, xMax );
         //this.b = Mathf.Clamp( this.b + b, 0, bMax );
         //this.c = Mathf.Clamp( this.c + c, 0, cMax );

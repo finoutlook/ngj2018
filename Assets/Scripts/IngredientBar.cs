@@ -7,6 +7,7 @@ public class IngredientBar : MonoBehaviour
     public Explodometer explodometer;
     public ScoreManager scoreManager;
     public GameLoopScript gameLoop;
+    public GameObject particles;
 
     public List<GameObject> ingredients;
 
@@ -46,6 +47,9 @@ public class IngredientBar : MonoBehaviour
 
     private void addIngredient(int i)
     {
+        var effect = particles.GetComponent<ParticleSystem>().main;
+        Instantiate(particles, particles.transform.position, Quaternion.identity);
+
         Ingredient ingredient = ingredients[i].GetComponent<Ingredient>();
         scoreManager.UpdateScore(explodometer.Apply(ingredient.X));
         reloadIngredient(i, ingredients[i].transform.position);
