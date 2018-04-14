@@ -19,6 +19,7 @@ public class Explodometer : MonoBehaviour
 
     public Flask flask;
     public Slider slider;
+    public ScoreManager scoreManager;
 
 	void Start ()
     {
@@ -68,7 +69,10 @@ public class Explodometer : MonoBehaviour
         {
             // lose and explode
             Debug.Log("Explodometer: YOU LOSE!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+            ApplicationModel.playerScore = scoreManager.GetScore();
+
+            SceneManager.LoadScene("Win");
         }
     }
 
