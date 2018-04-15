@@ -60,6 +60,7 @@ public class GameLoopScript : MonoBehaviour {
         if (possibleIngredients != null && possibleIngredients.Any())
         {
             int negativeAddedSoFar = 0;
+            int positiveAddedSoFar = 0;
 
             int ingredientsAdded = 0;
 
@@ -74,9 +75,10 @@ public class GameLoopScript : MonoBehaviour {
                     negativeAddedSoFar++;
                     ingredientsAdded++;
                 }
-                else
+                else if (obj.GetComponent<Ingredient>().X >= 0 && positiveAddedSoFar < NumberOfIngredientsPerTurn - 1)
                 {
                     newIngredients.Add(obj);
+                    positiveAddedSoFar++;
                     ingredientsAdded++;
                 }
             }
