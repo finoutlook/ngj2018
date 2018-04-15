@@ -74,6 +74,11 @@ public class GameLoopScript : MonoBehaviour {
                     negativeAddedSoFar++;
                     ingredientsAdded++;
                 }
+                else
+                {
+                    newIngredients.Add(obj);
+                    ingredientsAdded++;
+                }
             }
         }
 
