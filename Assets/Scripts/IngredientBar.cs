@@ -49,13 +49,13 @@ public class IngredientBar : MonoBehaviour
     {
         
         Ingredient ingredient = ingredients[i].GetComponent<Ingredient>();
+        IngredientMovementController ing = ingredients[i].GetComponent<IngredientMovementController>();
+        ing.ThrowIntoFlask(ingredient.X);
 
         var effect = particles.GetComponent<ParticleSystem>().main;
         effect.startColor = ingredient.X > 0 ? new Color(1, 0.7f, 0.7f ) : new Color(0.7f, 1, 0.7f);
         var obj = Instantiate(particles, particles.transform.position, Quaternion.identity);
         obj.GetComponent<ParticleSystem>().Play();
-
-        scoreManager.UpdateScore(explodometer.Apply(ingredient.X));
         reloadIngredient(i, ingredients[i].transform.position);
     }
 
@@ -66,7 +66,7 @@ public class IngredientBar : MonoBehaviour
             gameLoop.RemoveNegativeIngredient();
         }
 
-        GameObject.Destroy(ingredients[index]);
+        //GameObject.Destroy(ingredients[index]);
         ingredients[index] = gameLoop.GetNewIngredient(position);
     }
 
