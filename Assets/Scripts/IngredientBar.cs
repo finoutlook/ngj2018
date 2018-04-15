@@ -14,11 +14,15 @@ public class IngredientBar : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        ingredients = gameLoop.GetNewIngredients();
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    private void Awake()
+    {
+        ingredients = gameLoop.GetNewIngredients();
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && ingredients.Count > 0 )
         {

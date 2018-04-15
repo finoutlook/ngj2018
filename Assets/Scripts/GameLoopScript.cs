@@ -11,11 +11,12 @@ public class GameLoopScript : MonoBehaviour {
     public List<GameObject> AllPossibleIngredients;
     public List<GameObject> SpawnPoints;
 
-    public static List<GameObject> CurrentIngredients;
+    private List<GameObject> CurrentIngredients = new List<GameObject>();
 
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         /*AllPossibleIngredients = new List<Ingredient>()
         {
             new Ingredient("Apple", 20, 0, 0, 0, 1),
@@ -26,7 +27,7 @@ public class GameLoopScript : MonoBehaviour {
         */
 
 
-        CurrentIngredients = new List<GameObject>();
+        //CurrentIngredients = new List<GameObject>();
     }
 	
 	// Update is called once per frame
