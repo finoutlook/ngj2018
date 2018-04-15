@@ -14,10 +14,6 @@ public class IngredientBar : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-	}
-
-    private void Awake()
-    {
         ingredients = gameLoop.GetNewIngredients();
     }
 

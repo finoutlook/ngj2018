@@ -54,10 +54,11 @@ public class Explodometer : MonoBehaviour
         flask.Color(_x);
         slider.value = Mathf.Abs(_x);
 
-        var points = (int)(Mathf.Round(1 * Mathf.Abs(_x)) + degradeSpeed);
+        var points = 0;
 
         if ( increaseDifficulty )
         {
+            points = (int)(Mathf.Round(1 * Mathf.Abs(_x)) + degradeSpeed); 
             degradeSpeed++;
             PointsText.GetComponent<Text>().text = "+" + points.ToString();
             Instantiate(PointsText, GameObject.FindGameObjectWithTag("GUI").transform);
