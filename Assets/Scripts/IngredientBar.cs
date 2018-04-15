@@ -65,8 +65,12 @@ public class IngredientBar : MonoBehaviour
 
     private void reloadIngredient(int index, Vector3 position)
     {
+        if (ingredients[index].GetComponent<Ingredient>().X < 0)
+        {
+            gameLoop.RemoveNegativeIngredient();
+        }
+
         GameObject.Destroy(ingredients[index]);
-        gameLoop.RemoveIngredient(index);
         ingredients[index] = gameLoop.GetNewIngredient(position);
     }
 
