@@ -10,7 +10,8 @@ public class GameLoopScript : MonoBehaviour {
 
     public List<GameObject> AllPossibleIngredients;
     public List<GameObject> SpawnPoints;
-    private List<GameObject> CurrentIngredients;
+
+    public static List<GameObject> CurrentIngredients;
 
 
 	// Use this for initialization
@@ -23,8 +24,10 @@ public class GameLoopScript : MonoBehaviour {
             new Ingredient("Banana", 0, 30, -5, 1, 1)
         };
         */
-        //CurrentIngredients = GetNewIngredients();
-	}
+
+
+        CurrentIngredients = new List<GameObject>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -67,29 +70,34 @@ public class GameLoopScript : MonoBehaviour {
             while (ingredientsAdded < NumberOfIngredientsPerTurn)
             {
                 int index = Random.Range(0, possibleIngredients.Count());
-                var obj = GameObject.Instantiate(possibleIngredients.ElementAt(index), SpawnPoints[ingredientsAdded].transform.position, Quaternion.identity);
+                var ingredient = GameObject.Instantiate(possibleIngredients.ElementAt(index), SpawnPoints[ingredientsAdded].transform.position, Quaternion.identity);
 
-                if (obj.GetComponent<Ingredient>().X < 0 && negativeAddedSoFar < NumberOfIngredientsPerTurn - 1)
+                if (ingredient.GetComponent<Ingredient>().X < 0 && negativeAddedSoFar < NumberOfIngredientsPerTurn - 1)
                 {
-                    newIngredients.Add(obj);
+                    newIngredients.Add(ingredient);
                     negativeAddedSoFar++;
                     ingredientsAdded++;
                 }
-                else if (obj.GetComponent<Ingredient>().X >= 0 && positiveAddedSoFar < NumberOfIngredientsPerTurn - 1)
+                else if (ingredient.GetComponent<Ingredient>().X >= 0 && positiveAddedSoFar < NumberOfIngredientsPerTurn - 1)
                 {
-                    newIngredients.Add(obj);
+                    newIngredients.Add(ingredient);
                     positiveAddedSoFar++;
                     ingredientsAdded++;
                 }
             }
         }
 
+        // keep a reference of the current ingredients
+        CurrentIngredients = newIngredients;
         return newIngredients;
     }
 
     public GameObject GetNewIngredient(Vector3 position)
     {
         GameObject ingredient = null;
+
+        int negativeAddedSoFar = CurrentIngredients.Count(x => x.GetComponent<Ingredient>().X < 0);
+        int positiveAddedSoFar = CurrentIngredients.Count(x => x.GetComponent<Ingredient>().X >= 0);
 
         // only ingredients available at this level
         var possibleIngredients = AllPossibleIngredients.Where(x => x.GetComponent<Ingredient>().UnlockedAtLevel <= Level);
@@ -98,8 +106,25 @@ public class GameLoopScript : MonoBehaviour {
         {
             int index = Random.Range(0, possibleIngredients.Count());
             ingredient = GameObject.Instantiate(possibleIngredients.ElementAt(index), position, Quaternion.identity);
+
+            if (ingredient.GetComponent<Ingredient>().X < 0 && negativeAddedSoFar < NumberOfIngredientsPerTurn - 1)
+            {
+                CurrentIngredients.Add(ingredient);
+                return ingredient;
+            }
+            else if (ingredient.GetComponent<Ingredient>().X >= 0 && positiveAddedSoFar < NumberOfIngredientsPerTurn - 1)
+            {
+                CurrentIngredients.Add(ingredient);
+                return ingredient;
+            }
         }
 
-        return ingredient;
+        // error
+        return null;
+    }
+
+    public void RemoveIngredient(int indexOfIngredient)
+    {
+        CurrentIngredients.RemoveAt(indexOfIngredient);
     }
 }
