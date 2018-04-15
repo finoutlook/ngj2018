@@ -6,7 +6,7 @@ public class GameLoopScript : MonoBehaviour {
 
     public int Level = 1;
     public int Turn = 1;
-    public int NumberOfIngredientsPerTurn = 5;
+    public int NumberOfIngredientsPerTurn = 4;
 
     public List<GameObject> AllPossibleIngredients;
     public List<GameObject> SpawnPoints;
@@ -113,7 +113,7 @@ public class GameLoopScript : MonoBehaviour {
                 CurrentIngredients.Add(ingredient);
                 return ingredient;
             }
-            else if (ingredient.GetComponent<Ingredient>().X >= 0 && positiveAddedSoFar < NumberOfIngredientsPerTurn - 1)
+            else
             {
                 CurrentIngredients.Add(ingredient);
                 return ingredient;
