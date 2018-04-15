@@ -50,6 +50,10 @@ public class GameLoopScript : MonoBehaviour {
                     newIngredients.Add(ingredient);
                     ingredientsAdded++;
                 }
+                else
+                {
+                    GameObject.Destroy(ingredient);
+                }
             }
         }
 
@@ -80,6 +84,10 @@ public class GameLoopScript : MonoBehaviour {
                 else if (ingredient.GetComponent<Ingredient>().X >= 0 && CurrentNumberOfNegativeIngredients > 0)
                 {
                     suitableIngredientFound = true;
+                }
+                else
+                {
+                    GameObject.Destroy(ingredient);
                 }
             }
         }
